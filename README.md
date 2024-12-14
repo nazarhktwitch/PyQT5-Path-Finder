@@ -9,15 +9,15 @@ This tool will search for the correct path to the Qt platform plugins used by Py
 
 To install PyQt5, run:
 
-pip install PyQt5
+    pip install PyQt5
 
-Installation
+## Installation
 
 Clone the repository:
 
-git clone https://github.com/nazarhktwitch/PyQt5-Path-Finder
+    git clone https://github.com/nazarhktwitch/PyQt5-Path-Finder
 
-cd PyQt5-Fixer
+    cd PyQt5-Path-Finder
 
 Install dependencies:
 
@@ -25,12 +25,12 @@ Ensure you have PyQt5 installed:
 
     pip install PyQt5
 
-Usage
+## Usage
 
 To use the PyQt5 Plugin Path Finder, run the Python script:
 
-python pyqt5_plugin_path_finder.py
+    python pplpf.py
 
-License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
