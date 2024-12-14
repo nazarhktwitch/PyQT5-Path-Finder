@@ -5,17 +5,30 @@ import site
 def get_pyqt_plugin_path():
     """Get the Qt plugin path for PyQt5."""
     try:
-        # Get the path to the site-packages
-        pyqt_path = site.getsitepackages()[0]  # Returns the first site-package directory
-        # Define the path to the Qt plugins
-        qt_plugins_path = os.path.join(pyqt_path, "PyQt5", "Qt", "plugins", "platforms")
+        # Get the Python executable directory
+        python_executable = sys.executable
+        python_directory = os.path.dirname(python_executable)
+        print(f"[Debug] Python executable is located at: {python_executable}")
         
-        # Check if the path exists
-        if not os.path.exists(qt_plugins_path):
-            print(f"[Error] Qt plugins path not found: {qt_plugins_path}")
+        # Try to find the site-packages directory relative to the Python executable
+        site_packages_path = os.path.join(python_directory, "Lib", "site-packages")
+        
+        # If the script was launched using a specific Python executable, check this directory
+        if os.path.exists(site_packages_path):
+            print(f"[Debug] Searching for plugins in: {site_packages_path}")
+            # Define the path to the Qt plugins
+            qt_plugins_path = os.path.join(site_packages_path, "PyQt5", "Qt", "plugins", "platforms")
+            
+            # Check if the path exists
+            if os.path.exists(qt_plugins_path):
+                return qt_plugins_path
+            else:
+                print(f"[Error] Qt plugins path not found in: {qt_plugins_path}")
+                return None
+        else:
+            print(f"[Error] site-packages not found in: {site_packages_path}")
             return None
-        
-        return qt_plugins_path
+
     except Exception as e:
         print(f"[Error] An error occurred: {e}")
         return None
@@ -52,7 +65,7 @@ def display_guide():
 
 def main():
     """Main function to execute the script logic."""
-    print("[Progress] Searching for PyQt5 plugin path...")
+    print("[Progress] Searching for PyQt5 plugin path based on the current Python environment...")
     
     plugin_path = get_pyqt_plugin_path()
     
